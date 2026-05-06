@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>化工仪表专项技能培训（第二期）招生简章</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f4c81',
+                        secondary: '#1e6bb8',
+                        accent: '#f59e0b',
+                        warm: '#f97316',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans SC', sans-serif; overflow-x: hidden; }
+        
+        /* Hero 背景动画 */
+        .hero-bg {
+            background: linear-gradient(135deg, #0a2540 0%, #1e6bb8 50%, #0f4c81 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        /* 浮动动画 */
+        .float-badge {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        /* 毛玻璃卡片 */
+        .glass-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        /* 标题下划线装饰 */
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+            border-radius: 2px;
+        }
+        
+        /* 时间轴 */
+        .timeline-line {
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #0f4c81, #1e6bb8, #0f4c81);
+        }
+        
+        /* 价格标签 */
+        .price-tag {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        
+        /* 特性卡片交互 */
+        .feature-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .feature-card:active {
+            transform: scale(0.98);
+        }
+        
+        /* 滚动显现动画 */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* CTA 按钮 */
+        .btn-cta {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.5);
+            transition: all 0.3s;
+        }
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.6);
+        }
+        .btn-cta:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* 表格行斑马纹 */
+        .table-row:nth-child(even) { background: rgba(30, 107, 184, 0.05); }
+        
+        /* 波浪分割线 */
+        .divider-wave {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            line-height: 0;
+        }
+        
+        /* 图片展示区 */
+        .gallery-img {
+            transition: transform 0.4s ease;
+            cursor: zoom-in;
+        }
+        .gallery-img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* 横向滚动容器 */
+        .snap-scroll {
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .snap-scroll > * {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+        }
+        
+        /* 指示点 */
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            transition: all 0.3s;
+        }
+        .dot.active {
+            background: #0f4c81;
+            width: 20px;
+            border-radius: 3px;
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+        .lightbox.active img {
+            transform: scale(1);
+        }
+        
+        /* 图片角标 */
+        .img-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(15, 76, 129, 0.85);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        /* 浮动联系电话 */
+        .fab-call {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 50;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.5);
+            animation: fab-pulse 2s ease-in-out infinite;
+        }
+        @keyframes fab-pulse {
+            0%, 100% { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.5); }
+            50% { box-shadow: 0 6px 30px rgba(245, 158, 11, 0.7); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- 首屏 Hero -->
+    <section class="hero-bg text-white relative min-h-[100dvh] flex flex-col">
+        <div class="relative z-10 flex-1 flex flex-col px-6 pt-12 pb-8">
+            <!-- 顶部标签 -->
+            <div class="flex items-center gap-3 mb-6">
+                <span class="px-3 py-1 bg-white/15 rounded-full text-xs font-medium backdrop-blur-sm border border-white/20">2026年度</span>
+                <span class="px-3 py-1 bg-accent/20 rounded-full text-xs font-medium text-accent border border-accent/30">限额招生</span>
+            </div>
+            
+            <!-- 主标题 -->
+            <div class="mb-4">
+                <p class="text-blue-200 text-sm mb-2 tracking-widest">杨文华仪表技能大师工作室 / 枝江三宁职业技术学校</p>
+                <h1 class="text-4xl font-bold leading-tight mb-2">
+                    化工仪表专项技能培训
+                </h1>
+                <div class="flex items-center gap-2">
+                    <span class="text-3xl font-black text-accent">第二期</span>
+                    <span class="text-lg text-blue-100">正式启动</span>
+                </div>
+            </div>
+            
+            <!-- 核心卖点 -->
+            <div class="flex gap-3 my-6">
+                <div class="flex-1 glass-card rounded-xl p-3 text-center float-badge" style="animation-delay: 0s;">
+                    <p class="text-2xl font-bold text-accent">4周</p>
+                    <p class="text-xs text-blue-200 mt-1">系统集训</p>
+                </div>
+                <div class="flex-1 glass-card rounded-xl p-3 text-center float-badge" style="animation-delay: 0.5s;">
+                    <p class="text-2xl font-bold text-accent">理实一体</p>
+                    <p class="text-xs text-blue-200 mt-1">白天+晚自习</p>
+                </div>
+                <div class="flex-1 glass-card rounded-xl p-3 text-center float-badge" style="animation-delay: 1s;">
+                    <p class="text-2xl font-bold text-accent">实战导向</p>
+                    <p class="text-xs text-blue-200 mt-1">全流程演练</p>
+                </div>
+            </div>
+            
+            <!-- 招生提示 -->
+            <div class="glass-card rounded-2xl p-4 border border-white/20 mb-6">
+                <div class="flex items-start gap-3">
+                    <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center shrink-0 mt-0.5">
+                        <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="font-bold text-accent mb-1">社会名额开放</p>
+                        <p class="text-sm text-blue-100 leading-relaxed">企业定制专项技能培训，现<span class="text-white font-bold">对外开放少量名额</span>，面向仪表从业者及工程技术人员，招满即止。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA 按钮区 -->
+            <div class="mt-auto">
+                <a href="signup.html" class="btn-cta block w-full py-4 rounded-xl text-center text-white font-bold text-lg mb-3">
+                    立即咨询报名
+                </a>
+                <a href="#environment" class="block text-center text-sm text-blue-300 hover:text-white transition-colors">
+                    查看实训环境 ↓
+                </a>
+            </div>
+        </div>
+        
+        <!-- 波浪分割线 -->
+        <div class="divider-wave">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f8fafc"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 实训环境展示区 -->
+    <section id="environment" class="px-6 py-12 bg-slate-50">
+        <div class="text-center mb-8 scroll-reveal">
+            <h2 class="text-2xl font-bold text-gray-800 section-title">真实实训环境</h2>
+            <p class="text-sm text-gray-500 mt-3">专业设备 · 真实场景 · 沉浸式学习</p>
+        </div>
+        
+        <div class="max-w-md mx-auto">
+            <!-- 图片网格 -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- 图片1 -->
+                <div class="relative rounded-2xl overflow-hidden shadow-lg scroll-reveal bg-white" onclick="openLightbox('1.jpg?v=2')">
+                    <img src="dcs.jpg?v=2" alt="执行器与阀体" class="w-full h-48 object-cover gallery-img">
+                    <span class="img-badge">执行器与阀体</span>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8">
+                        <p class="text-white text-sm font-medium">调节阀实训区</p>
+                    </div>
+                </div>
+                
+                <!-- 图片2 -->
+                <div class="relative rounded-2xl overflow-hidden shadow-lg scroll-reveal bg-white" onclick="openLightbox('2.jpg?v=2')" style="transition-delay: 0.1s;">
+                    <img src="valve.jpg?v=2" alt="ECS700控制系统" class="w-full h-48 object-cover gallery-img">
+                    <span class="img-badge">ECS700控制系统</span>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-8">
+                        <p class="text-white text-sm font-medium">过程控制系统装置</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 环境亮点 -->
+            <div class="mt-6 flex flex-wrap gap-2 justify-center scroll-reveal">
+                <span class="px-3 py-1.5 bg-primary/10 text-primary text-xs rounded-full font-medium">ECS700 DCS系统</span>
+                <span class="px-3 py-1.5 bg-primary/10 text-primary text-xs rounded-full font-medium">化工单元操作装置</span>
+                <span class="px-3 py-1.5 bg-primary/10 text-primary text-xs rounded-full font-medium">真实设备1:1实操</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 培训概况 -->
+    <section class="px-6 py-12 bg-white">
+        <div class="text-center mb-10 scroll-reveal">
+            <h2 class="text-2xl font-bold text-gray-800 section-title">培训概况</h2>
+        </div>
+        
+        <div class="space-y-4 max-w-md mx-auto">
+            <div class="feature-card bg-white rounded-2xl p-5 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-0.5">培训时间</p>
+                        <p class="font-bold text-gray-800">2026年5月11日 — 6月6日（共4周）</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card bg-white rounded-2xl p-5 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-0.5">培训地点</p>
+                        <p class="font-bold text-gray-800">三宁职校教学楼及仪表实训室</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-card bg-white rounded-2xl p-5 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-0.5">招生对象</p>
+                        <p class="font-bold text-gray-800">仪表从业者、工程技术人员</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 价格信息 -->
+        <div class="mt-6 max-w-md mx-auto">
+            <div class="price-tag rounded-2xl p-6 text-white text-center scroll-reveal">
+                <p class="text-sm opacity-90 mb-2">培训费用</p>
+                <div class="flex items-baseline justify-center gap-1">
+                    <span class="text-lg">¥</span>
+                    <span class="text-5xl font-black">4800</span>
+                </div>
+                <div class="flex justify-center gap-4 mt-4 text-sm">
+                    <span class="flex items-center gap-1 bg-white/20 px-3 py-1 rounded-full">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        含住宿
+                    </span>
+                    <span class="flex items-center gap-1 bg-white/20 px-3 py-1 rounded-full">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                        餐费自理
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 课程特色 -->
+    <section class="px-6 py-12 bg-slate-50">
+        <div class="text-center mb-10 scroll-reveal">
+            <h2 class="text-2xl font-bold text-gray-800 section-title">课程特色</h2>
+            <p class="text-sm text-gray-500 mt-3">四大核心亮点，确保学有所成</p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">模块清晰</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">四周递进式教学，从基础原理到DCS系统，系统化掌握核心技能</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">理实一体</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">理论授课与实训操作结合，白天上课+晚自习巩固强化</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">实战导向</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">模拟真实工艺条件，完成仪表设计、安装、调试全流程</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">成果输出</h3>
+                <p class="text-xs text-gray-500 leading-relaxed">完成标准化方案、思维导图及结业汇报，即学即用</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 课程安排 -->
+    <section class="px-6 py-12 bg-white">
+        <div class="text-center mb-10 scroll-reveal">
+            <h2 class="text-2xl font-bold text-gray-800 section-title">四周课程安排</h2>
+            <p class="text-sm text-gray-500 mt-3">系统进阶，从入门到精通</p>
+        </div>
+        
+        <div class="relative max-w-md mx-auto space-y-6 pl-2">
+            <div class="timeline-line"></div>
+            
+            <div class="scroll-reveal">
+                <div class="flex gap-4">
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm border-4 border-white shadow-md">W1</div>
+                    </div>
+                    <div class="flex-1 bg-slate-50 rounded-2xl p-4 border border-gray-100">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h3 class="font-bold text-gray-800">仪表基础与控制系统原理</h3>
+                        </div>
+                        <ul class="text-sm text-gray-600 space-y-1.5">
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></span>
+                                <span>仪表识图、常用工具、仪表防护</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></span>
+                                <span>检测仪表与传感器（压力、温度、流量、液位）</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></span>
+                                <span>自动控制系统基本概念（DCS、SIS、GDS）</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></span>
+                                <span>防爆等级、供电供气、机柜安装规范</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></span>
+                                <span><strong class="text-primary">实战：</strong>模拟工艺仪表选型及安装</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scroll-reveal">
+                <div class="flex gap-4">
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-sm border-4 border-white shadow-md">W2</div>
+                    </div>
+                    <div class="flex-1 bg-slate-50 rounded-2xl p-4 border border-gray-100">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h3 class="font-bold text-gray-800">仪表调试与维保</h3>
+                        </div>
+                        <ul class="text-sm text-gray-600 space-y-1.5">
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></span>
+                                <span>温度、压力、液位、流量仪表的调试与维保</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></span>
+                                <span>操作标准化方案编制</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></span>
+                                <span><strong class="text-secondary">实战：</strong>检修标准化方案编制</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scroll-reveal">
+                <div class="flex gap-4">
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm border-4 border-white shadow-md">W3</div>
+                    </div>
+                    <div class="flex-1 bg-slate-50 rounded-2xl p-4 border border-gray-100">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h3 class="font-bold text-gray-800">执行机构与安全仪表</h3>
+                        </div>
+                        <ul class="text-sm text-gray-600 space-y-1.5">
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0"></span>
+                                <span>执行器认知与拆装</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0"></span>
+                                <span>自调阀、调节阀的安装与调教</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0"></span>
+                                <span>定位器（梅索里兰、美卓尔）安装与调教</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-accent mt-1.5 shrink-0"></span>
+                                <span>安全仪表系统（SIS）与先进控制（APC）</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="scroll-reveal">
+                <div class="flex gap-4">
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 rounded-full bg-warm text-white flex items-center justify-center font-bold text-sm border-4 border-white shadow-md">W4</div>
+                    </div>
+                    <div class="flex-1 bg-slate-50 rounded-2xl p-4 border border-gray-100">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h3 class="font-bold text-gray-800">DCS系统组态与综合验收</h3>
+                        </div>
+                        <ul class="text-sm text-gray-600 space-y-1.5">
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-warm mt-1.5 shrink-0"></span>
+                                <span>ECS700系列实训装置及硬件搭建</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-warm mt-1.5 shrink-0"></span>
+                                <span>仪表选型、安装、调试及校验</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-warm mt-1.5 shrink-0"></span>
+                                <span>ECS仪表投用综合练习与验收</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-warm mt-1.5 shrink-0"></span>
+                                <span><strong class="text-warm">结业：</strong>技能比武与汇报总结</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 每日作息 -->
+    <section class="px-6 py-12 bg-slate-50">
+        <div class="text-center mb-10 scroll-reveal">
+            <h2 class="text-2xl font-bold text-gray-800 section-title">每日作息安排</h2>
+        </div>
+        
+        <div class="max-w-md mx-auto space-y-3">
+            <div class="flex items-center gap-4 bg-white rounded-xl p-4 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="w-16 text-center">
+                    <p class="text-lg font-bold text-primary">07:30</p>
+                    <p class="text-xs text-gray-400">—</p>
+                    <p class="text-lg font-bold text-primary">11:15</p>
+                </div>
+                <div class="w-px h-10 bg-gray-200"></div>
+                <div>
+                    <p class="font-bold text-gray-800">上午课程</p>
+                    <p class="text-xs text-gray-500">理论授课 / 实操讲解</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 bg-white rounded-xl p-4 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="w-16 text-center">
+                    <p class="text-lg font-bold text-secondary">14:00</p>
+                    <p class="text-xs text-gray-400">—</p>
+                    <p class="text-lg font-bold text-secondary">17:45</p>
+                </div>
+                <div class="w-px h-10 bg-gray-200"></div>
+                <div>
+                    <p class="font-bold text-gray-800">下午课程</p>
+                    <p class="text-xs text-gray-500">实训操作 / 现场演练</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 bg-white rounded-xl p-4 shadow-sm border border-gray-100 scroll-reveal">
+                <div class="w-16 text-center">
+                    <p class="text-lg font-bold text-accent">18:30</p>
+                    <p class="text-xs text-gray-400">—</p>
+                    <p class="text-lg font-bold text-accent">20:00</p>
+                </div>
+                <div class="w-px h-10 bg-gray-200"></div>
+                <div>
+                    <p class="font-bold text-gray-800">晚自习</p>
+                    <p class="text-xs text-gray-500">巩固练习 / 作业辅导</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 报名信息 -->
+    <section id="enroll" class="px-6 py-12 bg-white">
+        <div class="text-center mb-10 scroll-reveal">
+            <h2 class="text-2xl font-bold text-gray-800 section-title">报名信息</h2>
+            <p class="text-sm text-gray-500 mt-3">名额有限，报满即止</p>
+        </div>
+        
+        <div class="max-w-md mx-auto space-y-4">
+            <div class="bg-slate-50 rounded-2xl p-6 shadow-sm border border-gray-100 scroll-reveal">
+                <a href="tel:15071760641" class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500 mb-0.5">咨询及报名</p>
+                        <p class="font-bold text-gray-800">许老师 <span class="font-mono text-primary">15071760641</span></p>
+                    </div>
+                    <svg class="w-5 h-5 text-gray-300 ml-auto shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </a>
+            </div>
+            
+            <div class="bg-slate-50 rounded-2xl p-6 shadow-sm border border-gray-100 scroll-reveal">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    报名须知
+                </h3>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li class="flex items-start gap-3">
+                        <span class="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+                        <span>请直接联系许老师报名登记，招满即止</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+                        <span>名额有限，以缴费为准</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+                        <span>费用<strong class="text-primary">4800元/人</strong>，含培训期间住宿，餐费自理；个人报名者面议</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-5 h-5 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">4</span>
+                        <span>开班前将统一通知具体报到及上课安排</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA 底部 -->
+    <section class="px-6 py-12 bg-primary text-white">
+        <div class="text-center max-w-md mx-auto">
+            <h2 class="text-2xl font-bold mb-3">名额有限，立即报名</h2>
+            <p class="text-blue-200 text-sm mb-8">2026年5月11日正式开班，招满即止</p>
+            
+            <div class="glass-card rounded-2xl p-6 border border-white/20 mb-8">
+                <p class="text-sm text-blue-200 mb-1">培训费用</p>
+                <p class="text-5xl font-black mb-2">¥4800<span class="text-lg font-normal text-blue-200">/人</span></p>
+                <div class="flex justify-center gap-3 text-xs">
+                    <span class="bg-white/20 px-3 py-1 rounded-full">含住宿</span>
+                    <span class="bg-white/20 px-3 py-1 rounded-full">4周集训</span>
+                    <span class="bg-white/20 px-3 py-1 rounded-full">理实一体</span>
+                </div>
+            </div>
+            
+            <a href="signup.html" class="btn-cta block w-full py-4 rounded-xl text-center text-white font-bold text-lg mb-4">
+                立即咨询报名
+            </a>
+            <p class="text-xs text-blue-300">杨文华仪表技能大师工作室 / 枝江三宁职业技术学校</p>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs">
+        <p>三宁职校工业自动化教研室</p>
+        <p class="mt-2 text-slate-600">© 2026 版权所有</p>
+    </footer>
+
+    <!-- 浮动电话按钮 -->
+    <a href="tel:15071760641" class="fab-call" aria-label="拨打电话">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+    </a>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="放大查看">
+    </div>
+
+    <!-- 脚本 -->
+    <script>
+        // 滚动显现动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // 添加交错延迟
+                    const delay = entry.target.style.transitionDelay || '0s';
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, parseFloat(delay) * 1000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // Lightbox
+        function openLightbox(src) {
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                document.getElementById('lightbox-img').src = '';
+            }, 300);
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // 导航锚点平滑偏移（考虑 fixed 元素）
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
